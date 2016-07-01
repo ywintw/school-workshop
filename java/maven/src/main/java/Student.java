@@ -13,14 +13,16 @@ public class Student extends Person {
     public Klass getKlass(){
         return this.klass;
     }
+
     public void setKlass(Klass klass){
         this.klass = klass;
     }
 
-    /*public void removeKlass(Klass klass){
-        this.getKlass() == null;
-    }*/
+    public void removeKlass(Klass klass){
+        this.klass = null;
+        klass.removeStudent(this);
 
+    }
 
 
     public boolean isInKlass(Klass klass) {
@@ -28,7 +30,7 @@ public class Student extends Person {
     }
 
     public void introduce(){
-        Student leader = klass.getLeader();
+        leader = klass.getLeader();
         String leaderName = leader.getName();
         if(leaderName.equals(super.getName())
             && leader.isInKlass(klass)){
