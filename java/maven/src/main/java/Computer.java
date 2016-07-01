@@ -13,6 +13,7 @@ public class Computer implements Monitor {
     /*当学生加入Teacher教的班级的时候，Teacher会打印一个句话,形如：
     I am Tom. I know Jerry has joined Class 2.*/
 
+
     public void joinTell(Klass klass,Student stu){
         System.out.println("I am the Machine. I know " + stu.getName() + " has joined Class " + klass.getNumber() + ".");
     }

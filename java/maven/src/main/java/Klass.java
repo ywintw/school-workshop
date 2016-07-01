@@ -19,6 +19,7 @@ public class Klass {
     public int getNumber(){
         return number;
     }
+
     public void setNumber(int number){
         this.number = number;
     }
@@ -37,7 +38,6 @@ public class Klass {
         teacher.removeKlass(this);
     }
 
-
     public void isIn(Student stu) {
         if (stu.getKlass() != null && stu.getKlass().getNumber() == number) {
             System.out.println(stu.getName() + " is in this class.");
@@ -50,7 +50,7 @@ public class Klass {
         if(stu.getKlass() == null){
             stuList.add(stu);
             stu.setKlass(this);
-            for(int i=0; i<monList.size()-1; i++) {
+            for(int i=0; i<monList.size(); i++) {
                 Monitor mon = monList.get(i);
                 mon.joinTell(this, stu);
             }
@@ -66,12 +66,11 @@ public class Klass {
         }
     }
 
-
     public void assignLeader(Student stu){
         if(stu.getKlass() != null) {
             if(stu.getKlass().getNumber() == number) {
                 leader = stu;
-                for(int i=0; i<monList.size()-1; i++){
+                for(int i=0; i<monList.size(); i++){
                     monList.get(i).leaderTell(this,stu);
                 }
             }else {

@@ -23,6 +23,8 @@ public class KlassTest {
         teacher1 = new Teacher("Tom",11,33);
         teacher2 = new Teacher("John",12,33);
 
+        computer = new Computer();
+
         klass1.registerMoni(teacher1);
         klass1.registerMoni(computer);
 
