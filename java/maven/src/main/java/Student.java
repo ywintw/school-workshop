@@ -2,7 +2,7 @@ import java.util.List;
 
 public class Student extends Person {
     private Klass klass;
-    private List teachers;
+    //private List teachers;
     private Student leader;
 
     public Student(String name, int id, int age, Klass klass){
@@ -16,6 +16,11 @@ public class Student extends Person {
     public void setKlass(Klass klass){
         this.klass = klass;
     }
+
+    /*public void removeKlass(Klass klass){
+        this.getKlass() == null;
+    }*/
+
 
 
     public boolean isInKlass(Klass klass) {

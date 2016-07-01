@@ -1,20 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teacher extends Person implements X{
-    private List<Klass> klassList = null;
+public class Teacher extends Person implements Monitor {
+    private List<Klass> klassList;
+    //private List<Student> stuList;
 
-    public Teacher(String name, int id, int age, List<Klass> klassList){
+    public Teacher(String name, int id, int age){
         super(name,id,age);
-        this.klassList = klassList;
+        this.klassList = new ArrayList<Klass>();
+        //this.stuList = new ArrayList<Student>();
     }
 
     public void addKlass(Klass klass){
         klassList.add(klass);
+        klass.addTeacher(this);
     }
 
     public void removeKlass(Klass klass){
         klassList.remove(klass);
+        klass.removeTeacher(this);
     }
 
     public List<Klass> getKlassList(){
@@ -50,25 +54,35 @@ public class Teacher extends Person implements X{
 
     }
 
+    public void joinTell(Klass klass,Student stu){
+        System.out.println("I am " + super.getName() + ". I know " + stu.getName() + " has joined Class " + klass.getNumber() + ".");
+    }
+
+    public void leaderTell(Klass klass,Student stu){
+        System.out.println("I am " + super.getName() + ". I know " + stu.getName() + " become Leader of Class " + klass.getNumber() + ".");
+    }
+
+
+
+
+
     /*当学生加入Teacher教的班级的时候，Teacher会打印一个句话,形如：
     I am Tom. I know Jerry has joined Class 2.*/
 
-    public void joinTell(Klass klass,Student stu){
+    /*public void joinTell(Klass klass,Student stu){
         if(klass.getNumber() == stu.getKlass().getNumber() && klassList.contains(stu.getKlass())){
             System.out.println("I am " + super.getName() + ". I know " + stu.getName() + " has joined Class " + klass.getNumber() + ".");
         }
-    }
+    }*/
 
     /*当学生成为Teacher教的班级的班长的时候，Teacher会打印一个句话,形如：
     I am Tom. I know Jerry become Leader of Class 2.*/
 
-    public void leaderTell(Klass klass,Student stu){
+    /*public void leaderTell(Klass klass,Student stu){
         if(klass.getLeader().getId() == stu.getId() && klassList.contains(stu.getKlass())){
             System.out.println("I am " + super.getName() + ". I know " + stu.getName() + " become Leader of Class " + klass.getNumber() + ".");
         }
-    }
-
-
+    }*/
 
     /*public void introduceWith(Student stu){
         if(stu.getKlass().getNumber() == getKlass()){

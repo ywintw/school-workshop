@@ -5,36 +5,16 @@ import java.util.List;
 public class Klass {
     private int number;
     private Student leader;
-    private List<Student> stuList = new ArrayList<Student>();
+    private List<Student> stuList;
+    private List<Teacher> teaList;
+    private List<Monitor> monList;
 
     public Klass(int number){
         this.setNumber(number);
+        this.stuList = new ArrayList<Student>();
+        this.teaList = new ArrayList<Teacher>();
+        this.monList = new ArrayList<Monitor>();
     }
-
-    public boolean isIn(Student stu){
-        return stu.getKlass().getNumber() == number;
-    }
-
-    //stuList = new ArrayList<Student>();
-
-    public void appendMember(Student stu){
-        stuList.add(stu);
-        stu.setKlass(this);
-    }
-
-    /*public void appendTeacher(Teacher teacher){
-        this.teaList.add(teacher);
-        teacher.setKlass(this);
-    }*/
-
-    public void assignLeader(Student stu){
-        if(stu.getKlass().getNumber() == number){
-            leader = stu;
-        }else{
-            System.out.println("It is not one of us.");
-        }
-    }
-
 
     public int getNumber(){
         return number;
@@ -43,32 +23,68 @@ public class Klass {
         this.number = number;
     }
 
+    public void registerMoni(Monitor monitor){
+        monList.add(monitor);
+    }
+
+    public void addTeacher(Teacher teacher){
+        teaList.add(teacher);
+        teacher.addKlass(this);
+    }
+
+    public void removeTeacher(Teacher teacher){
+        teaList.remove(teacher);
+        teacher.removeKlass(this);
+    }
+
+
+    public void isIn(Student stu) {
+        if (stu.getKlass() != null && stu.getKlass().getNumber() == number) {
+            System.out.println(stu.getName() + " is in this class.");
+        }else{
+            System.out.println(stu.getName() + " is not in this class.");
+        }
+    }
+
+    public void appendMember(Student stu){
+        if(stu.getKlass() == null){
+            stuList.add(stu);
+            stu.setKlass(this);
+            for(int i=0; i<monList.size()-1; i++) {
+                Monitor mon = monList.get(i);
+                mon.joinTell(this, stu);
+            }
+        }else{
+            System.out.println(stu.getName() + " has already joined a class.");
+        }
+    }
+
+    public void removeStudent(Student stu){
+        if(stu.getKlass() != null){
+            stuList.remove(stu);
+            //stu.  ???
+        }
+    }
+
+
+    public void assignLeader(Student stu){
+        if(stu.getKlass() != null) {
+            if(stu.getKlass().getNumber() == number) {
+                leader = stu;
+                for(int i=0; i<monList.size()-1; i++){
+                    monList.get(i).leaderTell(this,stu);
+                }
+            }else {
+                System.out.println("It is not one of us.");
+            }
+        }else {
+            System.out.println(stu.getName() + " is not in a class.");
+        }
+    }
+
     public Student getLeader(){
         return leader;
     }
-
-    /*当学生加入Teacher教的班级的时候，Teacher会打印一个句话,形如：
-    I am Tom. I know Jerry has joined Class 2.*/
-
-    /*public void joinTell(Student stu, Teacher teacher){
-        Klass klass = stu.getKlass();
-        if(klass.getNumber() == this.number && teacher.getKlassList().contains(stu.getKlass())){
-            System.out.println("I am " + teacher.getName() + ". I know " + stu.getName() + " has joined Class " + number + ".");
-        }
-    }
-*/
-    /*当学生成为Teacher教的班级的班长的时候，Teacher会打印一个句话,形如：
-    I am Tom. I know Jerry become Leader of Class 2.*/
-
-    /*public void leaderTell(Student stu, Teacher teacher){
-        if(stu.getId() == leader.getId() && teacher.getKlassList().contains(stu.getKlass())){
-            System.out.println("I am " + teacher.getName() + ". I know " + stu.getName() + " become Leader of Class " + number + "." );
-        }
-
-    }*/
-
-
-
 
 
 
